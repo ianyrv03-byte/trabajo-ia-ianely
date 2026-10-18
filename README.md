@@ -1,0 +1,290 @@
+# Medidas Cautelares del Estado de Sonora
+
+<p align="center"><img src="app/static/logo_oficial.png" alt="Gobierno del Estado de Sonora" width="150"></p>
+
+Asistente conversacional de **preguntas frecuentes sobre medidas cautelares** para la ciudadanía de Sonora: personas con una medida cautelar, víctimas u ofendidos, familiares y público en general. Responde a partir de un catálogo en texto plano basado en el Código Nacional de Procedimientos Penales (CNPP) y en la Ley de Ejecución de Sanciones Penales y Medidas de Seguridad del Estado de Sonora, con la identidad visual formal del portal de la Secretaría de Seguridad y Protección Ciudadana ([seguridad.sonora.gob.mx](https://seguridad.sonora.gob.mx/)).
+
+> **Aviso:** la aplicación ofrece información general; no sustituye la asesoría de la defensa ni las resoluciones del Juez de Control.
+
+![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Gradio](https://img.shields.io/badge/Gradio-6.30-F97316)
+![Deploy](https://img.shields.io/badge/deploy-Render-46E3B7)
+
+## Pendientes antes de publicar
+
+1. **Datos de contacto oficiales.** El catálogo no incluye domicilio, horario, teléfono ni correo de la oficina de supervisión porque no se pudieron confirmar en fuentes oficiales. Agrégalos (campos `UBICACION`, `HORARIO`, `TELEFONO`, `CORREO`) en las fichas `autoridad-supervision-sonora` y `secretaria-seguridad-sonora` de `data/corpus.txt`, o desde el panel `/admin`. Mientras tanto, la aplicación responde «No tengo registrado» y remite al portal oficial: nunca inventa datos.
+2. **Revisión jurídica.** Pide al área jurídica de la dependencia que valide el contenido de las 22 fichas y actualiza `ACTUALIZADO` en cada una.
+3. **Autorización de imagen institucional.** El uso del escudo y la identidad del Gobierno del Estado de Sonora requiere la autorización de la dependencia responsable.
+
+## Identidad visual
+
+| Uso | Color | Origen |
+|---|---|---|
+| Guinda (encabezado, burbuja del usuario, foco) | `#6E0A3D` / `#610936` | Franja superior del portal |
+| Vino (pie, títulos) | `#410324` | Cifras del portal |
+| Magenta (enlaces, ornamento) | `#960E53` | Ornamento escalonado |
+| Naranja (ornamento) | `#DC7F37` | Ornamento escalonado |
+| Dorado (separadores, botón de envío, sugerencias) | `#947043` | Iconos y botones circulares |
+
+Tipografía Montserrat. Logotipos en `app/static/`: `logo_dark.png` (blanco, para la franja guinda), `logo.png` (gris, horizontal), `logo_oficial.png` y `logo_oficial_blanco.png` (versión apilada original) y `favicon.png`.
+
+## Contenido
+
+- [Características](#características)
+- [Arquitectura](#arquitectura)
+- [Estructura del repositorio](#estructura-del-repositorio)
+- [Inicio rápido](#inicio-rápido)
+- [Configuración](#configuración)
+- [Catálogo (corpus)](#catálogo-corpus)
+- [Administración](#administración)
+- [API HTTP](#api-http)
+- [Pruebas y calidad](#pruebas-y-calidad)
+- [Despliegue en Render](#despliegue-en-render)
+- [Seguridad y privacidad](#seguridad-y-privacidad)
+- [Limitaciones conocidas](#limitaciones-conocidas)
+
+## Características
+
+- **Catálogo como fuente de verdad.** Toda la información vive en `data/corpus.txt` (22 fichas: conceptos, tipos de medidas, procedimiento, cumplimiento, víctimas e institución). Agregar conocimiento es agregar una ficha, no cambiar código.
+- **Coste de tokens mínimo.** La IA es el último recurso: la mayoría de las consultas se resuelven con búsqueda local y no gastan tokens.
+- **Sin datos inventados.** Horarios, teléfonos, correos y ubicaciones se toman siempre de la ficha, nunca los redacta el modelo. Si un dato no está registrado, la aplicación lo indica.
+- **Límites de uso.** Cupos por consulta, por usuario y por día, y un tope global, con degradación a respuesta directa en lugar de error.
+- **Conversación fluida.** Respuestas al punto, preguntas de seguimiento y respuesta en streaming.
+- **Mejora continua.** Los usuarios pueden informar cuando falta información; el administrador convierte esos informes en nuevas fichas.
+- **Panel de administración** con editor del catálogo, importación de documentos asistida por IA y publicación en GitHub.
+- **Interfaz formal** en tema claro con la identidad visual del Gobierno del Estado de Sonora y tratamiento de «usted».
+
+## Arquitectura
+
+```
+                      ┌──────────────────────────── FastAPI ────────────────────────────┐
+ Navegador ──► Gradio │  /           chat público (interfaz Gradio)                      │
+                      │  /admin      panel de administración (token)                     │
+                      │  /api/*      API HTTP · /health · /docs                          │
+                      └───────┬──────────────────────────────────────────────────────────┘
+                              ▼
+                       app/service.py  (pipeline de consulta)
+                              │
+   ┌──────────┬───────────────┼────────────────┬───────────────┐
+   ▼          ▼               ▼                ▼               ▼
+ safety    intent       índice BM25        quota / caché     llm.py
+(derivar) (qué dato    (tags, sinónimos,  (cupos, límites)  (Anthropic u
+           se pide)     prefijos)                            OpenAI-compatible)
+                              ▲
+                  data/corpus.txt ──► app.build_corpus ──► data/index.json
+```
+
+### Pipeline de consulta
+
+Cada nivel se evalúa en orden; solo el último consume tokens de salida significativos.
+
+| Nivel | Comportamiento | Tokens |
+|---|---|---|
+| 0 | Derivación de emergencias (911/089), temas de salud o psicológicos y valoraciones de casos concretos («¿me van a dejar libre?») a la defensa; caché; aclaración cuando se pregunta un dato sin indicar el tema | 0 |
+| 1 | **Respuesta al punto**: devuelve únicamente el dato pedido (horario, teléfono, ubicación…). **Seguimiento**: «¿y el teléfono?» reutiliza el último tema de la conversación. Ficha directa para consultas claras | 0 |
+| 1b | **Reformulación**: si la búsqueda local no encuentra nada, el modelo propone 4 a 8 palabras clave y se busca de nuevo (una vez por pregunta, con caché; no cuenta como consulta del día) | ≈ 100 |
+| 2 | Una llamada al modelo con un máximo de 3 fichas recortadas, en streaming | ≈ 860 máx. |
+
+### Decisiones de diseño
+
+- **Búsqueda léxica** (BM25 con campos ponderados: tags ×4, título ×3, puesto ×2, texto ×1), sinónimos editables y coincidencia por prefijo. No requiere embeddings ni base de datos y construir el índice cuesta 0 tokens.
+- **Abstención con umbrales** (`MIN_SCORE`, `MIN_COVERAGE`): sin evidencia suficiente no se invoca al modelo.
+- **Contenido como dato.** Las fichas se entregan al modelo delimitadas y se instruye ignorar órdenes embebidas. Correos y teléfonos nunca se envían al modelo.
+- **Citas validadas.** El modelo cita el id de la ficha; las citas inexistentes se descartan y la respuesta se marca como no verificada si no cita ninguna.
+- **Sin estado en servidor.** Sin cuentas ni base de datos; la conversación no se persiste.
+
+## Estructura del repositorio
+
+```
+app/
+  main.py          FastAPI: API, cabeceras de seguridad y montaje de Gradio
+  ui.py            interfaz pública (tema oscuro, chat, streaming)
+  admin.py         panel /admin y publicación del catálogo en GitHub
+  admin_ai.py      importación de documentos y borradores con IA (uso del administrador)
+  service.py       pipeline de consulta
+  index.py         índice BM25, sinónimos y cobertura
+  intent.py        detección local del dato solicitado
+  corpus.py        parser y validación de corpus.txt
+  llm.py           cliente HTTP del modelo (respuesta completa y streaming)
+  quota.py         ritmo, cupos diarios y tope global
+  safety.py        filtro de derivación
+  build_corpus.py  CLI: validar e indexar
+  importar.py      CLI: proponer fichas desde un documento
+data/
+  corpus.txt       catálogo de preguntas frecuentes sobre medidas cautelares
+  sinonimos.txt    vocabulario coloquial
+  info_institucion.md  datos institucionales (panel «i» del chat)
+  index.json       índice precalculado
+tests/             pytest
+render.yaml        servicio de Render
+```
+
+## Inicio rápido
+
+Requisitos: Python 3.12.
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt -r requirements-dev.txt
+cp .env.example .env                  # edita LLM_API_KEY, ADMIN_TOKEN, ID_SALT
+python -m app.build_corpus            # valida el catálogo y genera data/index.json
+set -a; source .env; set +a           # exporta las variables del entorno
+uvicorn app.main:app --reload         # http://localhost:8000
+```
+
+Con `LLM_PROVIDER=none` la aplicación funciona completa sin invocar al modelo (respuestas directas y al punto, sin reformulación ni redacción).
+
+## Configuración
+
+Todo se controla con variables de entorno (ver `.env.example`). Las claves y tokens nunca deben subirse al repositorio.
+
+| Variable | Descripción | Por defecto |
+|---|---|---|
+| `LLM_PROVIDER` | `anthropic`, `openai` (compatible) o `none` | `anthropic` |
+| `MODEL_NAME` | Modelo a utilizar; verifica el identificador vigente con tu proveedor | `claude-haiku-5-5` |
+| `LLM_API_KEY` | Clave del proveedor (secreta) | — |
+| `LLM_BASE_URL` | URL base alternativa para proveedores compatibles | — |
+| `ADMIN_TOKEN` | Token del panel y de `/api/admin/*` (secreto) | — |
+| `ID_SALT` | Sal para el hash de identificadores anónimos (secreta) | `cambia-esto` |
+| `TIMEZONE` | Zona horaria para el reinicio diario de cupos | `America/Hermosillo` |
+| `MAX_QUERY_CHARS` | Longitud máxima de la pregunta | `300` |
+| `TOP_K` | Fichas máximas enviadas al modelo | `3` |
+| `MAX_CONTEXT_CHARS` | Presupuesto de contexto por consulta | `1800` |
+| `MAX_OUTPUT_TOKENS` | Tokens máximos de salida | `250` |
+| `USER_TOKENS_DAY` / `USER_QUERIES_DAY` | Cupo diario por usuario | `10000` / `15` |
+| `REQ_PER_MIN` | Consultas por minuto por usuario | `8` |
+| `IP_MULTIPLIER` | Holgura del cupo por IP (redes compartidas) | `5` |
+| `GLOBAL_TOKENS_DAY` | Tope diario de todo el servicio | `300000` |
+| `MIN_SCORE` / `MIN_COVERAGE` | Umbrales de relevancia | `1.2` / `0.34` |
+| `DIRECT_ENABLED` | Permite responder con la ficha sin invocar al modelo | `true` |
+| `STALE_DAYS` | Antigüedad a partir de la cual se avisa de vigencia | `365` |
+| `CACHE_SIZE` / `CACHE_TTL_S` | Caché de respuestas | `500` / `86400` |
+| `REPORTS_PER_DAY` | Informes de «sin respuesta» por usuario y día | `5` |
+| `REPORT_WEBHOOK_URL` | Webhook opcional que recibe los informes | — |
+| `IMPORT_MAX_CHUNKS` / `IMPORT_CHUNK_CHARS` | Límites de la importación asistida | `6` / `6000` |
+| `GITHUB_TOKEN`, `GITHUB_REPO` | Publicación del catálogo desde el panel | — |
+| `GITHUB_BRANCH`, `GITHUB_CORPUS_PATH` | Rama y ruta del catálogo | `main`, `data/corpus.txt` |
+| `SHOW_ADMIN_LINK` | Muestra un enlace discreto «Administración» al pie del chat; `false` lo oculta (el panel sigue en `/admin`) | `true` |
+
+> Los cupos viven en memoria y se reinician con el servicio. Configura además un tope de gasto en el panel del proveedor del modelo.
+
+## Catálogo (corpus)
+
+`data/corpus.txt` contiene una ficha por pregunta o tema. El formato es de texto plano, pensado para editarse a mano:
+
+```
+### presentacion-periodica
+TITULO: Presentación periódica («firma»)
+PUESTO: Medida cautelar del artículo 155, fracción I, del CNPP
+CATEGORIA: cumplimiento
+AUDIENCIA: imputado
+TAGS: firma, firmar, ir a firmar, presentacion periodica, cada cuanto
+UBICACION: (domicilio oficial de la oficina, cuando esté confirmado)
+HORARIO: (horario oficial)
+TELEFONO: (teléfono oficial)
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Cada cuánto tengo que ir a firmar?
+--
+Texto con frases cortas, formales y literales, con el fundamento legal cuando aplique.
+```
+
+| Campo | Uso |
+|---|---|
+| `### id` | Identificador único (minúsculas y guiones) |
+| `TITULO` | Obligatorio |
+| `TAGS` | Palabras que los usuarios escribirían, con sinónimos coloquiales. Principal factor de recuperación |
+| `PUESTO`, `RESPONSABLE`, `CORREO`, `TELEFONO`, `UBICACION`, `HORARIO`, `WEB` | Ficha de contacto y respuestas al punto |
+| `ACTUALIZADO` | `AAAA-MM-DD`; habilita el aviso de vigencia |
+| `PREGUNTA` | Pregunta modelo mostrada como ejemplo en el chat; los temas más consultados aparecen primero |
+| `CATEGORIA`, `AUDIENCIA` | Clasificación. `AUDIENCIA`: `imputado`, `victima` o `todos` |
+
+Recomendaciones: un tema por ficha, menos de 1,200 caracteres de texto, fundamento legal citado, tratamiento de «usted» y sin datos personales. Una ficha que contenga `[COMPLETAR]` no pasa la validación.
+
+`data/sinonimos.txt` define un grupo por línea (`localizador, brazalete, grillete, pulsera`). Se aplica a la consulta, no al documento.
+
+## Administración
+
+### Panel web
+
+`/admin` (requiere `ADMIN_TOKEN`):
+
+- **Resumen:** temas más consultados, informes de «sin respuesta», fichas desactualizadas y avisos de validación.
+- **Corpus:** editor con validación y **Guardar y publicar**. El cambio se aplica de inmediato; con `GITHUB_TOKEN` y `GITHUB_REPO` se registra además un commit y Render redespliega.
+- **Memoria:** estado de lo cargado frente al archivo del catálogo (indica si el índice quedó desactualizado), caché e informes pendientes. Botones **Reindexar ahora** (recarga `corpus.txt` y reconstruye el índice) y **Vaciar caché** (respuestas y reformulaciones; no reinicia los cupos de los usuarios).
+- **Importar con IA:** carga de PDF, HTML, TXT o MD (máx. 3 MB). Propone fichas para revisión; los correos, teléfonos y URLs ausentes del documento original se eliminan de la propuesta.
+- **Borrador desde informes:** genera fichas con `[COMPLETAR]` a partir de las preguntas sin respuesta más frecuentes. No pueden publicarse hasta completarse con información oficial.
+- **Configuración:** valores activos de solo lectura con recomendaciones (clave de IA ausente, `ID_SALT` por defecto, token corto, GitHub sin configurar). Los secretos nunca se muestran: solo si están configurados. Para cambiarlos se editan las variables de entorno y se redespliega.
+
+El token de GitHub debe ser *fine-grained*, limitado a este repositorio y con permiso *Contents: Read and write*.
+
+### Línea de comandos
+
+```bash
+python -m app.build_corpus                  # valida e indexa (0 tokens)
+python -m app.build_corpus --check          # solo valida (CI)
+python -m app.build_corpus --sugerir-tags   # sugiere tags para fichas sin TAGS
+python -m app.importar doc.pdf --dry-run    # fragmentos y coste estimado, sin llamar al modelo
+python -m app.importar doc.pdf              # escribe data/propuestas.txt
+```
+
+## API HTTP
+
+Documentación interactiva en `/docs`.
+
+| Método y ruta | Descripción | Acceso |
+|---|---|---|
+| `GET /health` | Estado del servicio | Público |
+| `POST /api/consulta` | `{"texto": str, "perfil": "imputado\|victima\|todos"}` → respuesta con fichas y uso. Cabecera opcional `X-Client-Id` | Público, con límite de ritmo |
+| `POST /api/feedback` | `{"util": bool}` | Público |
+| `GET /api/admin/estado` | Estado del índice, métricas y cuotas | Token |
+| `GET /api/admin/reportes` | Informes de «sin respuesta» y temas populares | Token |
+| `POST /api/admin/reindex` | Recarga el catálogo | Token |
+
+El token se envía en `X-Admin-Token` o `Authorization: Bearer <token>`.
+
+## Pruebas y calidad
+
+```bash
+ruff check .
+python -m app.build_corpus --check
+pytest -q --cov=app
+```
+
+Las pruebas no realizan llamadas de red: el modelo, GitHub y el streaming se simulan. Cubren el parser del corpus, la recuperación, los cupos, el pipeline (abstención, derivación, caché, seguimiento, reformulación, streaming y degradación), la importación con verificación de contactos, el panel y la API. El flujo de integración continua (`.github/workflows/ci.yml`) ejecuta lint, validación del catálogo, pruebas con cobertura y `pip-audit`.
+
+## Despliegue en Render
+
+1. Crea un **Web Service** conectado a este repositorio (o usa `render.yaml` como Blueprint).
+2. Configura:
+   - **Build Command:** `pip install -r requirements.txt && python -m app.build_corpus --check`
+   - **Start Command:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - **Health Check Path:** `/health`
+3. Variables de entorno: `PYTHON_VERSION=3.12.8`, `LLM_API_KEY`, `ADMIN_TOKEN` e `ID_SALT`; opcionalmente `GITHUB_TOKEN`, `GITHUB_REPO` y `REPORT_WEBHOOK_URL`.
+4. Cada push a la rama principal redespliega automáticamente.
+
+Los valores de `render.yaml` solo se aplican si el servicio se crea como Blueprint; en un servicio creado desde el panel deben configurarse allí. Verifica los límites vigentes del plan elegido: en el plan gratuito el servicio se suspende por inactividad, tiene memoria limitada y no ofrece disco persistente, por lo que los cambios hechos desde el panel sin `GITHUB_TOKEN` y los informes en memoria se pierden al reiniciar.
+
+## Seguridad y privacidad
+
+- Sin cuentas, sin base de datos y sin historial: la conversación no se guarda.
+- Los cupos usan un identificador anónimo del navegador y la IP, ambos con hash salado y solo en memoria.
+- La pregunta solo se almacena si el usuario pulsa «Informar que falta esta información»; se trunca y se enmascaran correos y teléfonos.
+- El panel de administración nunca muestra secretos; el enlace del chat es discreto y desactivable, pero la protección real es el token.
+- Los endpoints de administración usan comparación de token en tiempo constante, bloqueo tras 5 intentos fallidos en 10 minutos y se revalidan en cada acción del panel.
+- Todo el contenido del catálogo y de los usuarios se muestra escapado; la API incluye `Content-Security-Policy` y `X-Content-Type-Options`.
+- Las fichas se tratan como datos delimitados; correos y teléfonos no se envían al modelo.
+- Las dependencias están fijadas y se auditan en CI.
+
+## Limitaciones conocidas
+
+- La búsqueda es léxica: la calidad depende de buenos `TAGS` y sinónimos. Los umbrales de relevancia deben calibrarse con el catálogo real.
+- Los contadores de cupo, los informes y la popularidad de temas viven en memoria y se reinician con el servicio.
+- Las respuestas directas devuelven datos de la ficha, por lo que su exactitud depende de que el catálogo esté al día (`ACTUALIZADO`).
+- Los selectores de estilo dependen de los nombres internos de Gradio 6.30; actualizar la versión puede requerir ajustar el CSS en `app/ui.py`.
+
+## Fuentes del catálogo
+
+- Código Nacional de Procedimientos Penales: arts. 137 (medidas de protección), 153-175 (medidas cautelares) y 191-200 (suspensión condicional del proceso).
+- Ley de Ejecución de Sanciones Penales y Medidas de Seguridad del Estado de Sonora: arts. 1, 14 Bis (evaluación de riesgo y supervisión), 35 Bis-41 Bis D. Texto publicado por el [Supremo Tribunal de Justicia de Sonora](https://stjsonora.gob.mx/acceso_informacion/marco_normativo/LeyDeEjecucionSanciones.pdf).
+- Portal de la Secretaría de Seguridad y Protección Ciudadana: [seguridad.sonora.gob.mx](https://seguridad.sonora.gob.mx/).

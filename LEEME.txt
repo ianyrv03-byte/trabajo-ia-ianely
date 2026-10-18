@@ -1,0 +1,10 @@
+MEDIDAS CAUTELARES DEL ESTADO DE SONORA — Guía rápida
+====================================================
+1) Sube el contenido de esta carpeta a un repositorio de GitHub (sobrescribe si reutilizas el de GTU GUÍA).
+2) En Render crea un Web Service (o Blueprint con render.yaml) y define LLM_API_KEY, ADMIN_TOKEN e ID_SALT.
+3) Antes de publicar: agrega los datos oficiales de contacto (domicilio, horario, teléfono, correo) en las fichas
+   'autoridad-supervision-sonora' y 'secretaria-seguridad-sonora' de data/corpus.txt, o desde /admin.
+4) Para probar en tu equipo:
+     pip install -r requirements.txt
+     python -m app.build_corpus
+     LLM_PROVIDER=none uvicorn app.main:app --reload     ->  http://localhost:8000
