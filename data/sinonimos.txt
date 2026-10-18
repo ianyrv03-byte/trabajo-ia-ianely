@@ -1,0 +1,17 @@
+// Un grupo por línea: palabras que significan lo mismo para el usuario (palabras sueltas, sin acentos).
+// Se aplica solo a la consulta, no cambia los documentos. Edita a mano.
+firma, firmar, firmo, presentarme, presentacion, comparecer
+localizador, brazalete, grillete, pulsera, gps, monitoreo
+garantia, fianza, deposito, caucion
+imputado, acusado, procesado, indiciado, detenido
+victima, ofendido, denunciante, afectada, afectado
+juez, jueza, juzgado, tribunal
+domiciliario, domicilio, casa, hogar
+viajar, viaje, salir, foraneo
+mudarme, mudanza, cambiarme
+abogado, defensor, licenciado, defensora
+supervisor, supervisora, umeca, supervision
+incumplimiento, incumplir, falte, faltar
+fiscal, ministerio, fiscalia
+cereso, carcel, penal, prision
+quitar, quiten, quitan, retirar, levantar, cancelar

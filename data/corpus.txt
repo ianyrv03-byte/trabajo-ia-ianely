@@ -1,0 +1,339 @@
+// =====================================================================
+// CATÁLOGO DE «MEDIDAS CAUTELARES DEL ESTADO DE SONORA»
+// Fuentes: Código Nacional de Procedimientos Penales (CNPP), arts. 137, 153-175 y 191-200;
+//          Constitución Política de los Estados Unidos Mexicanos, art. 19;
+//          Ley de Ejecución de Sanciones Penales y Medidas de Seguridad del Estado de Sonora (arts. 1, 14 Bis, 35 Bis-41 Bis D).
+// Información general y orientativa. NO incluye domicilios ni teléfonos de oficinas que no estén confirmados:
+// antes de publicar, la dependencia debe agregar UBICACION, HORARIO, TELEFONO y CORREO oficiales en las fichas
+// 'autoridad-supervision-sonora' y 'secretaria-seguridad-sonora'.
+// PREGUNTA (opcional): pregunta modelo que aparece como ejemplo en el chat.
+// AUDIENCIA: imputado | victima | todos.
+// Cada entrada empieza con "### id-en-minusculas". Copia data/plantilla_entrada.txt.
+// Después de editar:  python -m app.build_corpus   y haz commit.
+// =====================================================================
+
+### que-son-medidas-cautelares
+TITULO: ¿Qué son las medidas cautelares?
+PUESTO: Información general
+CATEGORIA: conceptos
+AUDIENCIA: todos
+TAGS: medida cautelar, medidas cautelares, que son, definicion, para que sirven, finalidad, proceso penal, significado
+WEB: https://seguridad.sonora.gob.mx/
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué son las medidas cautelares?
+--
+Las medidas cautelares son restricciones que un Juez de Control impone a una persona imputada mientras dura el proceso penal.
+Su finalidad es asegurar que la persona comparezca al proceso, que no obstaculice la investigación y proteger a la víctima, a los testigos o a la comunidad (artículo 153 del Código Nacional de Procedimientos Penales).
+No son una pena ni una condena: la persona sigue siendo inocente mientras no exista sentencia.
+Deben ser proporcionales al riesgo y durar solo el tiempo indispensable.
+
+### tipos-medidas-cautelares
+TITULO: Tipos de medidas cautelares
+PUESTO: Artículo 155 del Código Nacional de Procedimientos Penales
+CATEGORIA: conceptos
+AUDIENCIA: todos
+TAGS: tipos, cuales son, lista, catalogo, articulo 155, firma periodica, garantia economica, embargo, inmovilizacion de cuentas, prohibicion de salir, localizador electronico, resguardo domiciliario, separacion del domicilio, suspension del cargo
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué tipos de medidas cautelares existen?
+--
+El artículo 155 del Código Nacional de Procedimientos Penales prevé 14 medidas cautelares:
+1. Presentación periódica ante el juez o ante la autoridad que este designe.
+2. Exhibición de una garantía económica.
+3. Embargo de bienes.
+4. Inmovilización de cuentas y valores del sistema financiero.
+5. Prohibición de salir sin autorización del país, de la localidad o del ámbito territorial que fije el juez.
+6. Sometimiento al cuidado o vigilancia de una persona o institución, o internamiento en una institución.
+7. Prohibición de concurrir a determinadas reuniones o de acercarse a ciertos lugares.
+8. Prohibición de convivir, acercarse o comunicarse con determinadas personas, víctimas, ofendidos o testigos.
+9. Separación inmediata del domicilio.
+10. Suspensión temporal en el ejercicio del cargo, cuando se atribuye un delito cometido por servidores públicos.
+11. Suspensión temporal de una actividad profesional o laboral.
+12. Colocación de localizadores electrónicos.
+13. Resguardo en el propio domicilio con las modalidades que el juez disponga.
+14. Prisión preventiva.
+El juez puede imponer una o varias a la vez.
+
+### quien-impone-medidas
+TITULO: ¿Quién impone las medidas cautelares y cuándo?
+PUESTO: Juez de Control
+CATEGORIA: procedimiento
+AUDIENCIA: todos
+TAGS: quien impone, juez de control, audiencia, ministerio publico, fiscalia, solicitud, imputacion, vinculacion a proceso, cuando se imponen, quien decide, quien pone
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Quién decide qué medida cautelar me corresponde?
+--
+Solo un Juez de Control puede imponer medidas cautelares, en audiencia y con la presencia de las partes.
+Las solicita el Ministerio Público o la víctima u ofendido, después de formulada la imputación o cuando la persona imputada pide ampliar el plazo constitucional (artículo 154 del CNPP).
+El juez decide considerando la evaluación de riesgo, los argumentos de las partes y el principio de proporcionalidad, y debe elegir la medida menos lesiva que sea suficiente.
+La Secretaría de Seguridad no impone medidas: únicamente evalúa riesgos y supervisa su cumplimiento.
+
+### autoridad-supervision-sonora
+TITULO: Autoridad de supervisión de medidas cautelares en Sonora
+PUESTO: Dirección General de Ejecución de Penas, Medidas de Seguridad, Supervisión de Medidas Cautelares y de la Suspensión Condicional del Proceso
+RESPONSABLE: Secretaría de Seguridad y Protección Ciudadana del Estado de Sonora
+CATEGORIA: institucion
+AUDIENCIA: todos
+TAGS: umeca, unidad de medidas cautelares, autoridad de supervision, direccion general, supervisor, oficina, donde, ubicacion, contacto, quien supervisa, supervision de medidas
+WEB: https://seguridad.sonora.gob.mx/
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Quién supervisa las medidas cautelares en Sonora?
+--
+En Sonora la evaluación de riesgos y la supervisión de las medidas cautelares distintas a la prisión preventiva, así como de las condiciones de la suspensión condicional del proceso, corresponden a la Dirección General de Ejecución de Penas, Medidas de Seguridad, Supervisión de Medidas Cautelares y de la Suspensión Condicional del Proceso, dependiente de la Secretaría de Seguridad (Ley de Ejecución de Sanciones Penales y Medidas de Seguridad del Estado de Sonora, artículos 1 y 14 Bis).
+Entre sus funciones están: elaborar la evaluación de riesgo, dar seguimiento a las medidas, entrevistar a la persona supervisada y a la víctima, realizar visitas no anunciadas al domicilio, verificar la localización de la persona y llevar un registro actualizado de cada caso.
+Confirme el domicilio y el horario de atención de la oficina que le corresponde en el portal oficial o con su supervisor asignado.
+
+### evaluacion-de-riesgo
+TITULO: Evaluación de riesgo procesal
+PUESTO: Dirección General de Supervisión de Medidas Cautelares
+CATEGORIA: procedimiento
+AUDIENCIA: imputado
+TAGS: evaluacion de riesgo, entrevista, evaluador, riesgo procesal, opinion tecnica, 48 horas, informacion socioambiental, verificacion, me van a entrevistar
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué es la evaluación de riesgo?
+--
+La evaluación de riesgo es un análisis objetivo, imparcial y neutral sobre la persona imputada que ayuda al juez a decidir la medida cautelar.
+Considera, entre otros datos, el arraigo en la comunidad (domicilio, familia, trabajo), el riesgo de que no se presente al proceso y el riesgo para la víctima o los testigos.
+En Sonora debe elaborarse dentro de las 48 horas siguientes a la detención (Ley de Ejecución de Sanciones Penales del Estado, artículo 14 Bis).
+La información proporcionada se verifica con otras fuentes, como familiares o el empleo.
+La autoridad de supervisión actúa con neutralidad, objetividad, imparcialidad y confidencialidad (artículo 164 del CNPP), y sus resultados se ponen a disposición de las partes para la audiencia.
+
+### obligaciones-persona-supervisada
+TITULO: Obligaciones de la persona supervisada
+PUESTO: Dirección General de Supervisión de Medidas Cautelares
+CATEGORIA: cumplimiento
+AUDIENCIA: imputado
+TAGS: obligaciones, que tengo que hacer, cumplir, reglas, supervision, visita domiciliaria, visitas, plan de supervision, supervisor asignado, reportarme, cambio de domicilio
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué obligaciones tengo con una medida cautelar?
+--
+Si le impusieron una medida cautelar distinta a la prisión preventiva, usted debe:
+1. Cumplir exactamente lo que ordenó el juez, en los días, lugares y horarios fijados.
+2. Presentarse ante la autoridad de supervisión con la frecuencia que se le indique e informar sobre sus actividades.
+3. Avisar de inmediato cualquier cambio de domicilio, teléfono o empleo y proporcionar información que permita localizarle.
+4. Permitir las entrevistas y las visitas no anunciadas a su domicilio que realice el personal de supervisión.
+5. Someterse a pruebas de alcohol o drogas sin previo aviso cuando así lo determine la medida o condición.
+Conserve una copia de la resolución del juez y los datos de su supervisor asignado.
+
+### presentacion-periodica
+TITULO: Presentación periódica («firma»)
+PUESTO: Medida cautelar del artículo 155, fracción I, del CNPP
+CATEGORIA: cumplimiento
+AUDIENCIA: imputado
+TAGS: firma, firmar, ir a firmar, presentacion periodica, presentarme, cada cuanto, comparecencia, dia de firma, no pude ir a firmar, falte a firmar
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Cada cuánto tengo que ir a firmar?
+--
+La frecuencia de la presentación periódica (conocida como «ir a firmar») la fija el Juez de Control en su resolución: puede ser semanal, quincenal, mensual u otra.
+Debe presentarse en el lugar y el horario que le indique la autoridad de supervisión, con una identificación oficial vigente.
+Si por causa justificada no puede acudir, avise a su supervisor antes de la fecha y conserve el comprobante de la causa (por ejemplo, una constancia médica o laboral).
+Faltar sin justificación es un incumplimiento que se informa a las partes y puede provocar que el juez imponga una medida más severa.
+
+### incumplimiento-medida
+TITULO: ¿Qué pasa si no cumplo la medida cautelar?
+PUESTO: Artículo 174 del CNPP
+CATEGORIA: cumplimiento
+AUDIENCIA: todos
+TAGS: incumplimiento, no cumplir, falte, consecuencias, que pasa si, revocacion, orden de aprehension, orden de comparecencia, mas grave, violar la medida
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué pasa si no cumplo con la medida cautelar?
+--
+Cuando la autoridad de supervisión detecta un incumplimiento, lo informa de inmediato a las partes (artículo 174 del CNPP).
+El Ministerio Público debe solicitar al juez, a la brevedad, una audiencia para revisar la medida. Si el incumplimiento es grave o reiterado, el juez puede sustituirla por otra más severa, incluso la prisión preventiva.
+El juez también puede ordenar la comparecencia o la aprehensión de la persona imputada para llevarla a la audiencia.
+Si se incumple una garantía económica, esta puede hacerse efectiva.
+Si tiene algún problema para cumplir, avise de inmediato a su supervisor y a su defensa.
+
+### revision-modificacion
+TITULO: Revisión, cambio o retiro de una medida cautelar
+PUESTO: Artículo 161 del CNPP
+CATEGORIA: procedimiento
+AUDIENCIA: todos
+TAGS: revision, modificar, cambiar, quitar, quiten, quitan, retirar, sustituir, cancelar, levantar la medida, revocar, cambio de circunstancias, solicitar al juez
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Puedo pedir que me cambien o quiten la medida cautelar?
+--
+Sí. Cuando cambian de forma objetiva las condiciones que justificaron la medida, cualquiera de las partes puede pedir al juez que la revise (artículo 161 del CNPP).
+La solicitud se hace a través de la defensa o del Ministerio Público; el juez cita a una audiencia y decide si la mantiene, la modifica, la sustituye o la revoca.
+La autoridad de supervisión también puede informar a las partes cuando cambian las circunstancias del caso.
+La persona supervisada no puede cambiar ni suspender la medida por su cuenta.
+
+### duracion-medida
+TITULO: ¿Cuánto tiempo dura una medida cautelar?
+PUESTO: Información general
+CATEGORIA: conceptos
+AUDIENCIA: todos
+TAGS: duracion, cuanto dura, cuanto tiempo, plazo, hasta cuando, vigencia, termina, dos años, termino
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Cuánto tiempo dura una medida cautelar?
+--
+Una medida cautelar dura el tiempo indispensable y, en general, se mantiene hasta que el juez la revoca o la modifica, o hasta que termina el proceso (por sentencia, sobreseimiento u otra forma de terminación).
+La prisión preventiva no puede exceder de la pena máxima prevista para el delito ni, en ningún caso, de dos años, salvo que su prolongación se deba al ejercicio del derecho de defensa (artículo 165 del CNPP).
+Consulte con su defensa la situación de su caso.
+
+### garantia-economica
+TITULO: Garantía económica
+PUESTO: Artículos 172 y 173 del CNPP
+CATEGORIA: medidas
+AUDIENCIA: imputado
+TAGS: garantia economica, fianza, deposito, dinero, cuanto cuesta, poliza, hipoteca, prenda, fiador, devolucion, me regresan el dinero, billete de deposito
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Cómo funciona la garantía económica o fianza?
+--
+El juez fija el monto de la garantía considerando el peligro de que la persona no se presente, el riesgo de que obstaculice la investigación o afecte a la víctima, testigos o comunidad, y su capacidad económica (artículo 172 del CNPP). También fija un plazo razonable para exhibirla.
+Puede otorgarse mediante depósito en efectivo, fianza de institución autorizada, hipoteca, prenda, fideicomiso u otra forma que el juez acepte.
+Si la persona cumple con sus obligaciones, la garantía se devuelve al terminar el proceso o al cancelarse la medida.
+Si incumple sin causa justificada, el juez puede hacer efectiva la garantía.
+El monto exacto solo lo determina el juez; esta guía no puede calcularlo.
+
+### localizador-electronico
+TITULO: Localizador electrónico (brazalete)
+PUESTO: Medida cautelar del artículo 155, fracción XII, del CNPP
+CATEGORIA: medidas
+AUDIENCIA: imputado
+TAGS: localizador electronico, brazalete, grillete, pulsera, monitoreo, gps, dispositivo, cargar, bateria, falla, se descargo, se dano, me lo puedo quitar
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué hago si falla mi localizador electrónico?
+--
+El localizador electrónico permite verificar la ubicación de la persona imputada. Cuando el juez lo ordena, lo comunica a la Dirección General encargada de la supervisión (Ley de Ejecución de Sanciones Penales del Estado, artículo 35 Bis K).
+No debe retirarlo, dañarlo ni manipularlo; hacerlo se considera incumplimiento.
+Mantenga el dispositivo con carga suficiente siguiendo las indicaciones que recibió al colocarlo.
+Si presenta una falla, se descarga o se daña por accidente, avise de inmediato a la autoridad de supervisión por el medio que le indicaron.
+
+### resguardo-domiciliario
+TITULO: Resguardo en el propio domicilio
+PUESTO: Medida cautelar del artículo 155, fracción XIII, del CNPP
+CATEGORIA: medidas
+AUDIENCIA: imputado
+TAGS: resguardo domiciliario, arresto domiciliario, prision domiciliaria, no puedo salir de mi casa, salir de casa, trabajar, permiso para salir, consulta medica
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Puedo salir de mi casa si tengo resguardo domiciliario?
+--
+El resguardo en el propio domicilio obliga a la persona a permanecer en el lugar que fije el juez, con las modalidades que este disponga.
+El juez puede autorizar salidas en horarios determinados, por ejemplo para trabajar o estudiar. Fuera de lo autorizado, salir es un incumplimiento.
+Para una salida no prevista (por ejemplo, una cita médica programada), solicite con anticipación la autorización del juez por medio de su defensa y avise a su supervisor.
+En una urgencia médica llame al 911 y avise a la autoridad de supervisión en cuanto sea posible.
+
+### salir-de-la-ciudad
+TITULO: Viajar o cambiar de domicilio con una medida cautelar
+PUESTO: Medida cautelar del artículo 155, fracción V, del CNPP
+CATEGORIA: medidas
+AUDIENCIA: imputado
+TAGS: viajar, salir de la ciudad, salir del estado, salir del pais, pasaporte, mudarme, cambio de domicilio, permiso, autorizacion, vacaciones, foraneo, otra ciudad
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Puedo viajar o cambiarme de domicilio?
+--
+Si el juez le prohibió salir del país, de su localidad o de un ámbito territorial, necesita su autorización previa para viajar fuera de ese límite.
+La solicitud se presenta al juez a través de su defensa, con el motivo, las fechas y el lugar de destino. Cuando la prohibición es de salir del país, puede ordenarse la entrega del pasaporte.
+Cualquier cambio de domicilio debe informarse de inmediato a la autoridad de supervisión y, si la medida lo exige, contar con autorización del juez.
+Viajar o mudarse sin autorización es un incumplimiento.
+
+### prohibicion-de-acercarse
+TITULO: Prohibición de acercarse o comunicarse con personas
+PUESTO: Medida cautelar del artículo 155, fracciones VII, VIII y IX, del CNPP
+CATEGORIA: medidas
+AUDIENCIA: todos
+TAGS: prohibicion de acercarse, orden de alejamiento, restriccion, hablar, expareja, pareja, contactar, buscar a la victima, no acercarse, no comunicarse, mensajes, redes sociales, llamadas, separacion del domicilio, victima, testigo, convivencia, hijos
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué incluye la prohibición de acercarse a la víctima?
+--
+El juez puede prohibir a la persona imputada acudir a ciertos lugares o reuniones, acercarse o comunicarse con la víctima, el ofendido o testigos, u ordenar su separación inmediata del domicilio.
+La prohibición de comunicarse incluye, salvo que el juez indique otra cosa, llamadas, mensajes, redes sociales o contacto por medio de otras personas.
+Si hay hijas o hijos en común, la convivencia se rige por lo que resuelva la autoridad competente; no debe decidirse por cuenta propia.
+Si la víctima detecta un acercamiento o contacto prohibido, debe reportarlo al 911 si está en peligro y avisar al Ministerio Público o a su asesor jurídico.
+
+### prision-preventiva
+TITULO: Prisión preventiva
+PUESTO: Artículo 19 constitucional y artículos 165 a 167 del CNPP
+CATEGORIA: medidas
+AUDIENCIA: todos
+TAGS: prision preventiva, oficiosa, justificada, cereso, detenido, carcel, preso, cuando procede, delitos graves
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué es la prisión preventiva?
+--
+La prisión preventiva es la medida cautelar más severa: la persona imputada permanece en un centro penitenciario mientras dura el proceso.
+Es justificada cuando el Ministerio Público demuestra que otras medidas no bastan para asegurar la comparecencia, el desarrollo de la investigación o la protección de la víctima, testigos o comunidad.
+Es oficiosa en los delitos que señala el artículo 19 de la Constitución; en esos casos el juez la impone sin que deba solicitarse.
+La supervisión de la Dirección General aplica a las medidas distintas a la prisión preventiva.
+
+### suspension-condicional-proceso
+TITULO: Suspensión condicional del proceso
+PUESTO: Artículos 191 a 200 del CNPP
+CATEGORIA: procedimiento
+AUDIENCIA: todos
+TAGS: suspension condicional del proceso, salida alterna, condiciones, plan de reparacion, reparacion del dano, trabajo comunitario, plazo, seis meses, tres años, revocacion, se extingue
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Qué es la suspensión condicional del proceso?
+--
+Es una salida alterna: el proceso se suspende si la persona imputada presenta un plan de reparación del daño y se somete a una o varias condiciones durante un plazo que fija el juez, no menor de seis meses ni mayor de tres años (artículo 195 del CNPP).
+Algunas condiciones posibles son: residir en un lugar determinado, no frecuentar ciertos lugares o personas, abstenerse de consumir drogas o abusar del alcohol, prestar servicio social a favor del Estado, tener un trabajo o capacitarse.
+En Sonora la Dirección General supervisa el cumplimiento de las condiciones, con apoyo de otras autoridades como la Secretaría de Salud o el Servicio Estatal de Empleo.
+Si se cumplen las condiciones y el plan de reparación, se extingue la acción penal. Si se incumplen de forma injustificada, el juez puede revocarla y el proceso continúa (artículo 198 del CNPP).
+
+### medidas-de-proteccion
+TITULO: Diferencia entre medidas cautelares y medidas de protección
+PUESTO: Artículos 137 y 155 del CNPP
+CATEGORIA: victimas
+AUDIENCIA: victima
+TAGS: medidas de proteccion, orden de proteccion, diferencia, ministerio publico, proteger a la victima, violencia, auxilio inmediato, vigilancia
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿En qué se diferencian las medidas de protección de las cautelares?
+--
+Las medidas de protección las ordena el Ministerio Público de inmediato cuando estima que la persona imputada representa un riesgo para la seguridad de la víctima (artículo 137 del CNPP); por ejemplo, prohibición de acercarse, auxilio inmediato de la policía o vigilancia en el domicilio de la víctima.
+Las medidas cautelares las impone el Juez de Control en audiencia, durante el proceso, a solicitud del Ministerio Público o de la víctima.
+Ambas buscan proteger a la víctima, pero las cautelares se supervisan de forma continua por la autoridad de supervisión.
+
+### derechos-de-la-victima
+TITULO: Derechos de la víctima en relación con las medidas cautelares
+PUESTO: Víctimas u ofendidos
+CATEGORIA: victimas
+AUDIENCIA: victima
+TAGS: victima, ofendido, derechos, solicitar medida, asesor juridico, me informan, seguimiento, entrevista a la victima, proteccion, denunciante
+ACTUALIZADO: 2026-10-17
+PREGUNTA: Soy víctima, ¿qué derechos tengo?
+--
+La víctima u ofendido puede solicitar al juez medidas cautelares y medidas de protección, ser escuchada en la audiencia y contar con un asesor jurídico.
+También tiene derecho a ser informada sobre las medidas impuestas y a que su información personal se proteja.
+El personal de supervisión puede entrevistar periódicamente a la víctima para dar seguimiento al cumplimiento de las medidas.
+Si la persona imputada incumple una medida que le protege, repórtelo al Ministerio Público o a su asesor jurídico; si está en peligro, llame al 911.
+
+### defensa-y-asesoria
+TITULO: Defensa pública y asesoría jurídica
+PUESTO: Orientación
+CATEGORIA: institucion
+AUDIENCIA: todos
+TAGS: abogado, defensor, defensor publico, defensoria publica, asesor juridico, gratuito, no tengo abogado, asesoria, orientacion legal
+ACTUALIZADO: 2026-10-17
+PREGUNTA: No tengo abogado, ¿qué hago?
+--
+Toda persona imputada tiene derecho a una defensa adecuada. Si no cuenta con abogado particular, el Estado le asigna un defensor público de forma gratuita.
+La víctima u ofendido tiene derecho a un asesor jurídico, que también puede ser público y gratuito.
+Las solicitudes al juez (cambiar una medida, pedir permiso para viajar o una salida) se hacen a través de la defensa o del asesor jurídico.
+Esta guía es informativa y no sustituye la asesoría de su defensor sobre su caso concreto.
+
+### secretaria-seguridad-sonora
+TITULO: Secretaría de Seguridad y Protección Ciudadana del Estado de Sonora
+PUESTO: Gobierno del Estado de Sonora
+CATEGORIA: institucion
+AUDIENCIA: todos
+TAGS: secretaria de seguridad, contacto, telefono, emergencias, 911, 089, denuncia anonima, portal, pagina web, sitio web, sonora, gobierno
+TELEFONO: Emergencias 911 · Denuncia anónima 089
+WEB: https://seguridad.sonora.gob.mx/
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Cuál es el sitio oficial de la Secretaría de Seguridad?
+--
+La Secretaría de Seguridad y Protección Ciudadana del Gobierno del Estado de Sonora es la dependencia de la que forma parte el área de supervisión de medidas cautelares.
+En su portal oficial puede consultar el directorio, las áreas estratégicas y los medios de contacto vigentes.
+Para emergencias marca 911. Para denuncias anónimas marca 089.
+
+### confidencialidad-datos
+TITULO: Confidencialidad de la información
+PUESTO: Protección de datos personales
+CATEGORIA: conceptos
+AUDIENCIA: todos
+TAGS: confidencial, confidencialidad, privacidad, datos personales, quien ve mi informacion, uso de la informacion, expediente, se comparte
+ACTUALIZADO: 2026-10-17
+PREGUNTA: ¿Mi información es confidencial?
+--
+La autoridad de supervisión se rige por los principios de neutralidad, objetividad, imparcialidad y confidencialidad (artículo 164 del CNPP). La información de la evaluación de riesgo y de la supervisión se utiliza dentro del proceso penal y se comparte con el juez y las partes.
+Los datos personales se protegen conforme a la legislación de transparencia y protección de datos personales.
+No escriba en este asistente datos personales, números de causa penal ni detalles de su caso.

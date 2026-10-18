@@ -1,0 +1,16 @@
+### id-en-minusculas-con-guiones
+TITULO: Pregunta o tema (por ejemplo: Presentación periódica)
+PUESTO: Fundamento o área responsable (por ejemplo: Artículo 155 del CNPP)
+CATEGORIA: conceptos|procedimiento|cumplimiento|medidas|victimas|institucion
+AUDIENCIA: imputado|victima|todos
+TAGS: 8 a 12 palabras clave sin acentos, separadas por comas
+RESPONSABLE: (opcional) dependencia o titular
+TELEFONO: (opcional, solo datos oficiales confirmados)
+CORREO: (opcional)
+UBICACION: (opcional)
+HORARIO: (opcional)
+WEB: (opcional)
+ACTUALIZADO: AAAA-MM-DD
+PREGUNTA: Pregunta modelo corta que aparece como ejemplo en el chat
+--
+De 2 a 6 frases cortas, formales y literales, con fundamento legal cuando aplique.

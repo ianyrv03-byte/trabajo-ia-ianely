@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medidas Cautelares del Estado de Sonora</title>
+  <link rel="icon" href="/static/favicon.png">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <a class="skip" href="#pregunta">Ir al campo de pregunta</a>
+  <header>
+    <div class="brand">
+      <img src="/static/logo_dark.png" alt="Gobierno del Estado de Sonora">
+      <span class="sep" aria-hidden="true"></span>
+      <div><h1>Medidas Cautelares</h1><p>Secretaría de Seguridad y Protección Ciudadana</p></div>
+    </div>
+  </header>
+  <main>
+    <p class="aviso" role="note">Este asistente ofrece información general sobre medidas cautelares; no sustituye la asesoría de su defensa
+      ni las resoluciones del Juez de Control. Sus preguntas se procesan con un servicio de IA de un tercero: no escriba datos personales
+      ni detalles de su caso. En caso de emergencia llame al 911.</p>
+
+    <div id="chat" role="log" aria-live="polite" aria-label="Conversación"></div>
+
+    <form id="form" autocomplete="off">
+      <label for="perfil">Consulto como</label>
+      <select id="perfil">
+        <option value="todos">Público en general / prefiero no decir</option>
+        <option value="imputado">Persona con medida cautelar</option>
+        <option value="victima">Víctima u ofendido</option>
+      </select>
+      <label for="pregunta">Su pregunta</label>
+      <textarea id="pregunta" rows="2" maxlength="300" placeholder="Ejemplo: ¿Cada cuánto tengo que ir a firmar?" required></textarea>
+      <div class="row">
+        <button type="submit" id="enviar">Preguntar</button>
+        <span id="uso" aria-live="off"></span>
+      </div>
+    </form>
+  </main>
+  <footer><p>Gobierno del Estado de Sonora · <a href="https://seguridad.sonora.gob.mx/" rel="noopener">seguridad.sonora.gob.mx</a></p></footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
